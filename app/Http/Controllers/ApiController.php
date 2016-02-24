@@ -7,7 +7,8 @@ class ApiController extends Controller
 {
     public function getSkills()
     {
-        $result = DB::connection('eve')->select('SELECT
+        $result = DB::connection('eve')->select(
+            'SELECT
               t.typeID as id,
               t.typeName AS text ,
 
@@ -47,18 +48,21 @@ class ApiController extends Controller
         return response()->json($result);
     }
 
-    public function getPrerequisits($id) {
+    public function getPrerequisits($id)
+    {
 
-        if(!is_numeric($id))
+        if (!is_numeric($id)) {
             return response()->json([]);
+        }
 
-        $result = DB::connection('eve')->select('
+        $result = DB::connection('eve')->select(
+            '
                                     SELECT output.*, invTypes.typeName
                                         FROM(
-                                        SELECT prereq(dgmTypeAttributes.typeID) AS id, @level AS level, @req AS req
+                                        SELECT SKILL_PREREQ(dgmTypeAttributes.typeID) AS id, @level AS level, @req AS req
                                         FROM (
                                         SELECT
-                                        @start_with := '. $id .',
+                                        @start_with := '. $id.',
                                         @id := @start_with,
                                         @level := 0,
                                         @parent := 0,
@@ -68,7 +72,8 @@ class ApiController extends Controller
                                         WHERE @id IS NOT NULL
                                         ) output
                                         INNER JOIN invTypes ON output.id = invTypes.typeID
-                                        ');
+                                        '
+        );
 
         return response()->json($result);
     }

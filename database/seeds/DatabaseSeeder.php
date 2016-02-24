@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
 
         $sql = <<<SQL
-            CREATE FUNCTION prereq(value INT) RETURNS INT
+            CREATE FUNCTION SKILL_PREREQ(value INT) RETURNS INT
             NOT DETERMINISTIC
             READS SQL DATA
             BEGIN
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             LOOP
 
             SELECT
-            MIN(valueInt) AS id, IF(MIN(valueInt), CONCAT(@path, ',', _parent), @path), attributeID
+            MIN(IFNULL(valueInt, valueFloat)) AS id, IF(MIN(IFNULL(valueInt, valueFloat)), CONCAT(@path, ',', _parent), @path), attributeID
             INTO @id, @path, _attid
             FROM `dgmTypeAttributes`
             WHERE
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
             SET _attid = _attid +95;
 
             SELECT
-                MIN(valueInt) AS req
+                MIN(IFNULL(valueInt, valueFloat)) AS req
             INTO @req FROM
                 `dgmTypeAttributes`
             WHERE
@@ -77,7 +77,6 @@ class DatabaseSeeder extends Seeder
             END LOOP;
             END
 SQL;
-
 
 
         DB::connection('eve')->getPdo()->exec($sql);

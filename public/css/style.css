@@ -1,0 +1,19 @@
+body {
+    background-image: url('/img/bg.jpg');
+    padding: 50px
+}
+
+.content {
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    opacity: 0.95;
+}
+
+.footer {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.edit-level {
+    cursor: pointer;
+}
