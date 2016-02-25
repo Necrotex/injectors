@@ -34,6 +34,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <label for="sp">Current SP</label>
+                    <input type="number" class="form-control" id="sp" placeholder="0" step="1" min="0">
+                </div>
+
+                <div class="form-group">
                     <select class="form-control" name="skills" id="skills">
                     </select>
                 </div>

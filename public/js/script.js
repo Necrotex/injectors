@@ -130,8 +130,14 @@ Injector.prototype.calcSkillPoints = function () {
 Injector.prototype.calcInjectors = function () {
     var injectors = 0;
     var injectorExp = 0;
+    var total_sp = 0;
 
-    while (this.total_sp > injectorExp) {
+    var current = $('#sp').val();
+
+    injectorExp += current;
+    total_sp +=current;
+
+    while (total_sp > injectorExp) {
         if (injectorExp <= 5000000) {
             injectorExp += 500000;
             injectors++;
